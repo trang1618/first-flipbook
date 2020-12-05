@@ -11,6 +11,8 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+# knit: (function(inputFile, encoding) {
+#   rmarkdown::render(inputFile, encoding = encoding, output_dir = "docs") })
 ---
 
 
@@ -79,13 +81,9 @@ mobile %>%
 
 `r chunk_reveal("mobile-viz-1", break_type = "user", widths = c(1,1), title = "### A TidyTuesday dataset")`
 
-
-
 ---
 
 `r chunk_reveal("mobile-viz-2", break_type = "rotate", widths = c(1,1), title = "### gghighlight")`
-
-
 
 <!-- adjust font size in this css code chunk, currently 80 -->
 
