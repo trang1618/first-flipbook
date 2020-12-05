@@ -1,0 +1,113 @@
+---
+title: "useful ggplot snippets"
+subtitle: ""
+author: ""
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{r, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scratch can be time consuming
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.width = 6,
+                      fig.height = 6,
+                      comment = "", cache = F, dpi=300)
+library(flipbookr)
+library(tidyverse)
+library(rcartocolor)
+library(gghighlight)
+# library(gganimate)
+library(scales)
+```
+
+
+<!-- get a flipbook version of the my_cars code chunk - pauses are where parentheses are balanced -->
+
+```{r read-data, include = FALSE}
+mobile_raw <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-11-10/mobile.csv')
+mobile <- mobile_raw %>% 
+  filter(!is.na(mobile_subs), year == 2010) %>% 
+  select(entity, gdp_per_cap, mobile_subs, total_pop, continent) %>% 
+  mutate(mobile_subs = mobile_subs/100)
+```
+
+```{r  mobile-viz-1, include = FALSE}
+mobile %>% #BREAK
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) + #BREAK
+  geom_point() + #BREAK
+  aes(size = total_pop, color = continent) +  #BREAK
+  scale_color_carto_d() + #BREAK
+  scale_size_continuous(guide = FALSE) + #BREAK
+  scale_x_log10(labels = dollar_format()) + #BREAK
+  scale_y_continuous(labels = percent_format()) +  #BREAK
+  labs(x = 'GDP per capita', 
+       y = 'Mobile subscription',
+       color = NULL) + #BREAK
+  theme_minimal() +  #BREAK
+  theme(panel.grid = element_blank(),
+        legend.position = 'top')
+```
+
+```{r mobile-viz-2, include = FALSE}
+mobile %>% 
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) + 
+  geom_point() + 
+  scale_color_carto_d() + 
+  scale_size_continuous(guide = FALSE) + 
+  scale_x_log10(labels = dollar_format()) + 
+  scale_y_continuous(labels = percent_format()) + 
+  labs(x = 'GDP per capita',
+       y = 'Mobile subscription') +
+  theme_minimal() + 
+  theme(panel.grid = element_blank()) + 
+  aes(size = total_pop, color = continent) +
+  gghighlight(mobile_subs > 1.7) + #ROTATE
+  facet_wrap(~ continent) + gghighlight() #ROTATE
+```
+
+
+<!-- get another flipbook version of the my_cars code chunk, this time at the defined breaks and only showing output -->
+---
+
+`r chunk_reveal("mobile-viz-1", break_type = "user", widths = c(1,1), title = "### A TidyTuesday dataset")`
+
+
+
+---
+
+`r chunk_reveal("mobile-viz-2", break_type = "rotate", widths = c(1,1), title = "### gghighlight")`
+
+
+
+<!-- adjust font size in this css code chunk, currently 80 -->
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 110%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+```
+

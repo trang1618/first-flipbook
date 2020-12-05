@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>useful ggplot snippets</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# useful ggplot snippets
+### 
+
+---
+
+
+
+
+
+
+&lt;!-- get a flipbook version of the my_cars code chunk - pauses are where parentheses are balanced --&gt;
+
+
+
+
+
+
+
+
+&lt;!-- get another flipbook version of the my_cars code chunk, this time at the defined breaks and only showing output --&gt;
+---
+
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+*mobile
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+
+```
+# A tibble: 204 x 5
+   entity              gdp_per_cap mobile_subs total_pop continent
+   &lt;chr&gt;                     &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;    
+ 1 Afghanistan               1614.       0.355  31411743 Asia     
+ 2 Albania                   9927.       0.916   3204284 Europe   
+ 3 Algeria                  12871.       0.908  35468208 Africa   
+ 4 Andorra                     NA        0.776     84864 Europe   
+ 5 Angola                    5898.       0.402  19081912 Africa   
+ 6 Antigua and Barbuda      19213.       1.77      88710 Americas 
+ 7 Argentina                18712.       1.38   40412376 Americas 
+ 8 Armenia                   6703.       1.34    3092072 Asia     
+ 9 Aruba                       NA        1.30     107488 Americas 
+10 Australia                41464.       1.02   22268384 Oceania  
+# … with 194 more rows
+```
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+* ggplot(aes(x = gdp_per_cap, y = mobile_subs))
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_02_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+* geom_point()
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_03_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+* aes(size = total_pop, color = continent)
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_04_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+  aes(size = total_pop, color = continent) +
+* scale_color_carto_d()
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_05_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+  aes(size = total_pop, color = continent) +
+  scale_color_carto_d() +
+* scale_size_continuous(guide = FALSE)
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_06_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+  aes(size = total_pop, color = continent) +
+  scale_color_carto_d() +
+  scale_size_continuous(guide = FALSE) +
+* scale_x_log10(labels = dollar_format())
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_07_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+  aes(size = total_pop, color = continent) +
+  scale_color_carto_d() +
+  scale_size_continuous(guide = FALSE) +
+  scale_x_log10(labels = dollar_format()) +
+* scale_y_continuous(labels = percent_format())
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_08_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+  aes(size = total_pop, color = continent) +
+  scale_color_carto_d() +
+  scale_size_continuous(guide = FALSE) +
+  scale_x_log10(labels = dollar_format()) +
+  scale_y_continuous(labels = percent_format()) +
+* labs(x = 'GDP per capita',
+*      y = 'Mobile subscription',
+*      color = NULL)
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_09_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+  aes(size = total_pop, color = continent) +
+  scale_color_carto_d() +
+  scale_size_continuous(guide = FALSE) +
+  scale_x_log10(labels = dollar_format()) +
+  scale_y_continuous(labels = percent_format()) +
+  labs(x = 'GDP per capita',
+       y = 'Mobile subscription',
+       color = NULL) +
+* theme_minimal()
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_10_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### A TidyTuesday dataset
+.panel1-mobile-viz-1-user[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+  aes(size = total_pop, color = continent) +
+  scale_color_carto_d() +
+  scale_size_continuous(guide = FALSE) +
+  scale_x_log10(labels = dollar_format()) +
+  scale_y_continuous(labels = percent_format()) +
+  labs(x = 'GDP per capita',
+       y = 'Mobile subscription',
+       color = NULL) +
+  theme_minimal() +
+* theme(panel.grid = element_blank(),
+*       legend.position = 'top')
+```
+]
+ 
+.panel2-mobile-viz-1-user[
+![](mobile-subs_files/figure-html/mobile-viz-1_user_11_output-1.png)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.panel1-mobile-viz-1-user {
+  color: black;
+  width: 49%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-mobile-viz-1-user {
+  color: black;
+  width: 49%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-mobile-viz-1-user {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+count: false
+ 
+### gghighlight
+.panel1-mobile-viz-2-rotate[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+  scale_color_carto_d() +
+  scale_size_continuous(guide = FALSE) +
+  scale_x_log10(labels = dollar_format()) +
+  scale_y_continuous(labels = percent_format()) +
+  labs(x = 'GDP per capita',
+       y = 'Mobile subscription') +
+  theme_minimal() +
+  theme(panel.grid = element_blank()) +
+  aes(size = total_pop, color = continent) +
+* gghighlight(mobile_subs &gt; 1.7)
+```
+]
+ 
+.panel2-mobile-viz-2-rotate[
+![](mobile-subs_files/figure-html/mobile-viz-2_rotate_01_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+### gghighlight
+.panel1-mobile-viz-2-rotate[
+
+```r
+mobile %&gt;%
+  ggplot(aes(x = gdp_per_cap, y = mobile_subs)) +
+  geom_point() +
+  scale_color_carto_d() +
+  scale_size_continuous(guide = FALSE) +
+  scale_x_log10(labels = dollar_format()) +
+  scale_y_continuous(labels = percent_format()) +
+  labs(x = 'GDP per capita',
+       y = 'Mobile subscription') +
+  theme_minimal() +
+  theme(panel.grid = element_blank()) +
+  aes(size = total_pop, color = continent) +
+* facet_wrap(~ continent) + gghighlight()
+```
+]
+ 
+.panel2-mobile-viz-2-rotate[
+![](mobile-subs_files/figure-html/mobile-viz-2_rotate_02_output-1.png)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.panel1-mobile-viz-2-rotate {
+  color: black;
+  width: 49%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-mobile-viz-2-rotate {
+  color: black;
+  width: 49%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-mobile-viz-2-rotate {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+&lt;!-- adjust font size in this css code chunk, currently 80 --&gt;
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 110%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+&lt;/style&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
