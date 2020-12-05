@@ -19,8 +19,8 @@ output:
 ```{r, include = F}
 # This is the recommended set up for flipbooks
 # you might think about setting cache to TRUE as you gain practice --- building flipbooks from scratch can be time consuming
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.width = 6,
-                      fig.height = 6,
+knitr::opts_chunk$set(message = FALSE, warning = FALSE,
+                      fig.height = 6, out.width = "100%",
                       comment = "", cache = F, dpi=300)
 library(flipbookr)
 library(tidyverse)
